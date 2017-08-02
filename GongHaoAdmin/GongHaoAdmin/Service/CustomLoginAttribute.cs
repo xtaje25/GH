@@ -53,7 +53,7 @@ namespace GongHaoAdmin.Service
         /// </summary>
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            filterContext.HttpContext.Response.Redirect("/Home/Login");
+            filterContext.Result = new RedirectResult("/Home/Login");
         }
     }
 
@@ -101,7 +101,7 @@ namespace GongHaoAdmin.Service
         /// </summary>
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            filterContext.HttpContext.Response.Redirect("/Home/AjaxLogin");
+            filterContext.Result = new RedirectResult("/Home/AjaxLogin");
         }
     }
 
@@ -157,7 +157,7 @@ namespace GongHaoAdmin.Service
         /// </summary>
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            filterContext.HttpContext.Response.Redirect("/Home/AjaxLogin");
+            filterContext.Result = new RedirectResult("/Home/AjaxLogin");
         }
     }
 }

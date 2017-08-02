@@ -18,8 +18,6 @@ namespace GongHaoAdmin.Controllers
         /// <summary>
         /// 首页
         /// </summary>
-
-
         [CustomLogin]
         public ActionResult Index()
         {
@@ -54,12 +52,23 @@ namespace GongHaoAdmin.Controllers
             HttpCookie authCookie = Request.Cookies["a"]; // 获取cookie
             if (authCookie != null)
             {
-                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value); // 解密
-                var user = SerializeHelper.FromJson<Tab_User>(ticket.UserData);
-                var u = new UserService().GetUser(user.F_Name, user.F_Password);
-                if (u != null)
+                try
                 {
-                    return RedirectToAction("Index", "Home");
+                    FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value); // 解密
+                    var user = SerializeHelper.FromJson<Tab_User>(ticket.UserData);
+                    var u = new UserService().GetUser(user.F_Name, user.F_Password);
+                    if (u != null)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        return RedirectToAction("SignOut", "Home");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return RedirectToAction("SignOut", "Home");
                 }
             }
 
@@ -175,6 +184,12 @@ namespace GongHaoAdmin.Controllers
             {
                 return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "旧密码不正确" });
             }
+        }
+
+
+        public ActionResult AjaxLogin()
+        {
+            return View();
         }
     }
 }

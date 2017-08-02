@@ -15,5 +15,15 @@ namespace GongHaoAdmin.Service
         {
             return gzhr.GetGZHList(pageIndex, pageSize, out totalPage, out totalRecord);
         }
+
+        public int UpdateGZHInfo(Tab_GongZhongHao m)
+        {
+            return gzhr.UpdateGZHInfo(m);
+        }
+
+        public Tab_GongZhongHao GetGZH(int uid)
+        {
+            return gzhr.GetGZH(uid);
+        }
     }
 }
