@@ -25,5 +25,10 @@ namespace GongHaoAdmin.Service
         {
             return ur.GetUser(uid);
         }
+
+        public List<Tab_User> GetUserLis()
+        {
+            return ur.GetUserLis();
+        }
     }
 }

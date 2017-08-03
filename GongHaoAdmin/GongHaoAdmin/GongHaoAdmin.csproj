@@ -287,8 +287,10 @@
     <Content Include="Views\GZH\Edit.cshtml" />
     <Content Include="Views\Home\AjaxLogin.cshtml" />
     <Content Include="Views\MH\AddView.cshtml" />
-    <Content Include="Views\MH\EditView.cshtml" />
+    <Content Include="Views\MH\DirView.cshtml" />
     <Content Include="Views\MH\Add.cshtml" />
+    <Content Include="Views\MH\EditView.cshtml" />
+    <Content Include="Views\MH\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

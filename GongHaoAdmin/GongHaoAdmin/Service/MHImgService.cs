@@ -25,5 +25,27 @@ namespace GongHaoAdmin.Service
         {
             return mr.GetMaxSort(mhid);
         }
+
+        public int DeleteImg(int id)
+        {
+            return mr.DeleteImg(id);
+        }
+
+        public Tab_MHImg GetImg(int img)
+        {
+            return mr.GetImg(img);
+        }
+
+        public int UpdateImg(Tab_MHImg m)
+        {
+            try
+            {
+                return mr.UpdateImg(m);
+            }
+            catch (Exception ex)
+            {
+                return 2;
+            }
+        }
     }
 }

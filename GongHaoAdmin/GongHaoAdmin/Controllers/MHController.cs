@@ -85,7 +85,7 @@ namespace GongHaoAdmin.Controllers
 
         [CustomAuthorize]
         [CustomAjaxLogin]
-        public ActionResult EditView()
+        public ActionResult DirView()
         {
             var option = new int[] { 20, 50, 100, 200 };
 
@@ -116,7 +116,7 @@ namespace GongHaoAdmin.Controllers
                     var user = SerializeHelper.FromJson<Tab_User>(ticket.UserData);
                     u = _us.GetUser(user.F_Name, user.F_Password);
                     if (u != null)
-                    {                        
+                    {
                     }
                     else
                     {
@@ -144,6 +144,39 @@ namespace GongHaoAdmin.Controllers
             var mh = _ms.GetMH(mhid);
             ViewBag.mh = mh;
 
+            ViewBag.ul = _us.GetUserLis();
+
+            return View();
+        }
+
+        [CustomAuthorize]
+        [CustomAjaxLogin]
+        public ActionResult EditView()
+        {
+            var id = Request.QueryString["id"];
+            int imgid = 0;
+            int.TryParse(id, out imgid);
+
+            ViewBag.mh = null;
+            ViewBag.max = 0;
+            ViewBag.img = null;
+
+            if (imgid > 0)
+            {
+                var img = _mhs.GetImg(imgid);
+
+                if (img == null)
+                    return View();
+
+                ViewBag.img = img;
+                var mh = _ms.GetMH(img.F_MHId);
+                if (mh != null)
+                {
+                    ViewBag.mh = mh;
+                    ViewBag.max = img.F_Sort;
+                }
+            }
+
             return View();
         }
 
@@ -151,7 +184,103 @@ namespace GongHaoAdmin.Controllers
         [CustomAjaxLogin]
         public ActionResult Edit()
         {
-            return Json(new { });
+            var id = Request.Form["mhid"];
+            var fid = Request.Form["fid"];
+            var sort = Request.Form["sort"]; // 章节ID
+            var name = Request.Form["name"];
+
+            var gid = 0;
+            Tab_User u = null;
+            HttpCookie authCookie = Request.Cookies["a"]; // 获取cookie
+            if (authCookie != null)
+            {
+                try
+                {
+                    FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value); // 解密
+                    var user = SerializeHelper.FromJson<Tab_User>(ticket.UserData);
+                    u = _us.GetUser(user.F_Name, user.F_Password);
+                    if (u != null)
+                    {
+                    }
+                    else
+                    {
+                        return RedirectToAction("SignOut", "Home");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return RedirectToAction("SignOut", "Home");
+                }
+            }
+            var gzh = _gzhs.GetGZH(u.F_Id);
+            if (gzh != null) gid = gzh.F_Id;
+
+            if (gid == 0)
+            {
+                // IE浏览器对非ajax请求Content-Type:是json的不友好所以使用View而非Json
+                return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "账号没有关联公众号" });
+            }
+
+            int imgid = 0;
+            if (fid == null || !int.TryParse(fid, out imgid) || imgid == 0)
+            {
+                return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "漫画自增ID无效" });
+            }
+
+            int mhid = 0;
+            if (id == null || !int.TryParse(id, out mhid) || mhid == 0)
+            {
+                return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "漫画ID无效" });
+            }
+
+            int zjid = 0;
+            if (sort == null || !int.TryParse(sort, out zjid) || zjid == 0)
+            {
+                return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "章节ID无效" });
+            }
+
+            if (name == null || name.Length > 50)
+            {
+                return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "章节名称长度必须小于50字符" });
+            }
+
+            var img = "";
+            if (Request.Files.Count > 0
+               && Request.Files[0].ContentLength > 0
+               && new string[] { ".gif", ".jpeg", ".jpg", ".png" }.Contains(System.IO.Path.GetExtension(Request.Files[0].FileName.ToLower())))
+            {
+                var key = QN.MHimg(gid, mhid);
+
+                FormUploader fu = new FormUploader();
+                HttpResult result = fu.UploadStream(Request.Files[0].InputStream, key, QN.GetUploadToken(QN.BUCKET, key));
+                if (result.Code == 200)
+                {
+                    img = key;
+                }
+            }
+
+            Tab_MHImg m = new Tab_MHImg();
+            m.F_Name = name;
+            m.F_Img = img != "" ? img : null;
+            m.F_MHId = mhid;
+            m.F_Sort = zjid;
+            m.F_UserId = u.F_Id;
+            m.F_Id = imgid;
+
+            var i = _mhs.UpdateImg(m);
+
+            if (i == 1)
+            {
+                return View(new DWZJson() { statusCode = (int)DWZStatusCode.OK, message = "成功" });
+            }
+            else if (i == 2)
+            {
+                return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "章节已经存在" });
+            }
+            else
+            {
+                return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "失败" });
+            }
         }
 
         [CustomAuthorize]
@@ -161,6 +290,9 @@ namespace GongHaoAdmin.Controllers
             var id = Request.QueryString["id"];
             int mhid = 0;
             int.TryParse(id, out mhid);
+
+            ViewBag.mh = null;
+            ViewBag.max = 0;
 
             if (mhid > 0)
             {
@@ -218,9 +350,9 @@ namespace GongHaoAdmin.Controllers
             }
 
             int mhid = 0;
-            if (sort == null || !int.TryParse(id, out mhid) || mhid == 0)
+            if (id == null || !int.TryParse(id, out mhid) || mhid == 0)
             {
-                return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "公号ID无效" });
+                return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "漫画ID无效" });
             }
 
             int zjid = 0;
@@ -274,6 +406,32 @@ namespace GongHaoAdmin.Controllers
             {
                 return View(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "失败" });
             }
+        }
+
+        [CustomAuthorize]
+        [CustomAjaxLogin]
+        public ActionResult Delete()
+        {
+            var id = Request.QueryString["id"];
+
+            var img = 0;
+            int.TryParse(id, out img);
+
+            if (img > 0)
+            {
+                var i = _mhs.DeleteImg(img);
+
+                if (i == 1)
+                {
+                    return Json(new DWZJson() { statusCode = (int)DWZStatusCode.OK, message = "成功" });
+                }
+                else
+                {
+                    return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "章节不存在" });
+                }
+            }
+
+            return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "章节不存在!" });
         }
     }
 }

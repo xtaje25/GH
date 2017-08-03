@@ -5,7 +5,7 @@
     VM_Page<Tab_MHCatalog> vm = ViewBag.ca;
 }
 <style>
-    /*.grid .gridTbody td div { display:block; height:auto; white-space:nowrap;}*/
+    .grid .gridTbody td div { display:block; height:auto; white-space:nowrap;}
 </style>
 
 <form id="pagerForm" method="post" action="@Url.Content("~/MH/IndexView")">
@@ -51,7 +51,7 @@
                         <td>@(item.F_CreateDate.ToString("yyyy-MM-dd"))</td>
                         <td>@(item.GZHName)</td>
                         <td>
-                            <a title="编辑" target="navTab" href="@Url.Content("~/MH/EditView")?id=@(item.F_Id)" class="btnEdit" minable="false">编辑</a>
+                            <a title="编辑" target="navTab" href="@Url.Content("~/MH/DirView")?id=@(item.F_Id)" class="btnEdit" minable="false">编辑</a>
                         </td>
                     </tr>
                     i++;

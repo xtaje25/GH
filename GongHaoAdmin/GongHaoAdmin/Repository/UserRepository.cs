@@ -67,5 +67,14 @@ namespace GongHaoAdmin.Repository
                 }
             }
         }
+
+        public List<Tab_User> GetUserLis()
+        {
+            var sql = "SELECT [F_Id], [F_Name], [F_CreateDate] FROM [Tab_User]";
+            using (SqlConnection conn = new SqlConnection(MHConncetionString))
+            {
+                return conn.Query<Tab_User>(sql).ToList();
+            }
+        }
     }
 }

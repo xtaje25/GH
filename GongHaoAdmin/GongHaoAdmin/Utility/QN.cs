@@ -15,10 +15,10 @@ namespace GongHaoAdmin.Utility
         private const string SK = "ckurM2tEcJaUafpCrleFMNdCGRMiR8sJenCpoq9v";
         public const string BUCKET = "zm123";
 #else
-        public const string IMGSRC = "http://7xiyf4.com1.z0.glb.clouddn.com";
-        private const string AK = "ABIJNSgcg6vGrFBUvkwnk8GMinp9vHSSaDlGMrrt";
-        private const string SK = "ckurM2tEcJaUafpCrleFMNdCGRMiR8sJenCpoq9v";
-        public const string BUCKET = "zm123";
+        public const string IMGSRC = "http://ou3uvrtrl.bkt.clouddn.com";
+        private const string AK = "x4SoJxUe3KI1pzskuLjLv7GGYzc7Owy71VxyrIOw";
+        private const string SK = "2Vzpinf_yToA_-1FFJVzHy4thgoXmArEWvZECLOC";
+        public const string BUCKET = "comic";
 #endif
 
         /// <summary>
