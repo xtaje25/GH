@@ -1,4 +1,5 @@
 ﻿@using GongHaoAdmin.Models;
+@using GongHaoAdmin.Utility;
 @{
     ViewBag.Title = "IndexView";
     VM_Page<Tab_MHCatalog> vm = ViewBag.ca;
@@ -40,7 +41,7 @@
                         <td>@(item.F_Catalog)</td>
                         @if (item.F_Logo != null)
                         {
-                            <td><a target="_blank" href="@(item.F_Logo+"-200x200.jpg")"><img src="@(item.F_Logo+"-100x100.jpg")" /></a></td>
+                            <td><a target="_blank" href="@(QN.IMGSRC+item.F_Logo+"-200x200.jpg")"><img src="@(item.F_Logo+"-100x100.jpg")" /></a></td>
                         }
                         else
                         {
@@ -50,7 +51,7 @@
                         <td>@(item.F_CreateDate.ToString("yyyy-MM-dd"))</td>
                         <td>@(item.GZHName)</td>
                         <td>
-                            <a title="编辑" target="dialog" href="@Url.Content("~/MH/EditView")?id=@(item.F_Id)" class="btnEdit" minable="false" mask="true">编辑</a>
+                            <a title="编辑" target="navTab" href="@Url.Content("~/MH/EditView")?id=@(item.F_Id)" class="btnEdit" minable="false">编辑</a>
                         </td>
                     </tr>
                     i++;

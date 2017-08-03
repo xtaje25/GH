@@ -1,4 +1,5 @@
 ﻿@using GongHaoAdmin.Models;
+@using GongHaoAdmin.Utility;
 @{
     ViewBag.Title = "IndexView";
     Tab_GongZhongHao gzh = ViewBag.gzh;
@@ -17,7 +18,7 @@
                 <dd>
                     @if (gzh != null && gzh.F_Logo != null)
                     {
-                        <img src="@(gzh.F_Logo)-100x100.jpg" />
+                        <img src="@(QN.IMGSRC+gzh.F_Logo)-100x100.jpg" />
                     }
                     <input id="logo" name="logo" type="file" accept="image/gif,image/jpeg,image/jpg,image/png" />
                 </dd>

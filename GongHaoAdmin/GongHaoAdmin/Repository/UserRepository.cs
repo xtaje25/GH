@@ -43,5 +43,29 @@ namespace GongHaoAdmin.Repository
                 return conn.Execute(sql, new { F_Password = npwd, F_Id = uid, F_Password2 = opwd });
             }
         }
+
+        public Tab_User GetUser(int uid)
+        {
+            var sql = "SELECT [F_Id], [F_Name], [F_Password], [F_CreateDate] FROM [Tab_User] WHERE F_Id = @F_Id";
+
+            using (SqlConnection conn = new SqlConnection(MHConncetionString))
+            {
+                var list = conn.Query<Tab_User>(sql, new { F_Id = uid }).ToList();
+
+                if (list != null && list.Count > 0)
+                {
+                    Tab_User u = new Tab_User();
+                    u.F_Id = list[0].F_Id;
+                    u.F_Name = list[0].F_Name;
+                    u.F_Password = list[0].F_Password;
+
+                    return u;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
     }
 }

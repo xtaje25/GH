@@ -260,11 +260,13 @@
     <Compile Include="Repository\GongZhongHaoRepository.cs" />
     <Compile Include="Repository\MenuRepository.cs" />
     <Compile Include="Repository\MHCatalogRepository.cs" />
+    <Compile Include="Repository\MHImgRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Service\CustomLoginAttribute.cs" />
     <Compile Include="Service\GongZhongHaoService.cs" />
     <Compile Include="Service\MenuService.cs" />
     <Compile Include="Service\MHCatalogService.cs" />
+    <Compile Include="Service\MHImgService.cs" />
     <Compile Include="Service\UserService.cs" />
     <Compile Include="Utility\QN.cs" />
     <Compile Include="Utility\SerializeHelper.cs" />
@@ -284,6 +286,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\GZH\Edit.cshtml" />
     <Content Include="Views\Home\AjaxLogin.cshtml" />
+    <Content Include="Views\MH\AddView.cshtml" />
+    <Content Include="Views\MH\EditView.cshtml" />
+    <Content Include="Views\MH\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -20,5 +20,10 @@ namespace GongHaoAdmin.Service
         {
             return ur.UpdatePassword(uid, opwd, npwd);
         }
+
+        public Tab_User GetUser(int uid)
+        {
+            return ur.GetUser(uid);
+        }
     }
 }
