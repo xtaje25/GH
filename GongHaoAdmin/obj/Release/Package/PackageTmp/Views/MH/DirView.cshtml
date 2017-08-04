@@ -1,0 +1,78 @@
+﻿@using GongHaoAdmin.Models;
+@using GongHaoAdmin.Utility;
+@{
+    VM_Page<Tab_MHImg> vm = ViewBag.ca;
+    Tab_MHCatalog mh = ViewBag.mh;
+    Tab_GongZhongHao gzh = ViewBag.gzh;
+    List<Tab_User> ul = ViewBag.ul;
+}
+<style>
+    .grid .gridTbody td div { display:block; height:auto; white-space:nowrap;}
+</style>
+
+<form id="pagerForm" method="post" action="@Url.Content("~/MH/DirView")">
+    <input type="hidden" name="pageNum" value="1" />
+    <input type="hidden" name="numPerPage" value="@(vm.numPerPage)" />
+    <input type="hidden" name="id" value="@(mh!=null?mh.F_Id:0)" />
+</form>
+
+<div class="pageHeader">
+    <div class="searchBar">
+        <div class="subBar">
+            <ul>
+                <li><a class="button" href="@Url.Content("~/MH/AddView")?id=@(mh!=null?mh.F_Id:0)" target="dialog" mask="true" title="添加公号"><span>添加漫画章节</span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="pageContent">
+    <div class="panelBar">
+    </div>
+    <table class="table" width="100%" layoutH="111">
+        <thead>
+            <tr>
+                <th>漫画名称</th>
+                <th>章节</th>
+                <th>章节名称</th>
+                <th>章节详情</th>
+                <th>添加时间</th>
+                <th>添加人</th>
+                <th>关联公众号</th>
+                <th width="200">编辑</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in vm.list)
+            {
+                <tr>
+                    <td>@(mh.F_Catalog)</td>
+                    <td>@(item.F_Sort)</td>
+                    <td>@(item.F_Name)</td>
+                    <td><a target="_blank" href="@(QN.IMGSRC+"/"+item.F_Img+"-200x200.jpg")"><img src="@(QN.IMGSRC+"/"+item.F_Img+"-100x100.jpg")" /></a></td>
+                    <td>@(item.F_CreateDate.ToString("yyyy-MM-dd"))</td>
+                    <td>@(ul.Find(x => x.F_Id == item.F_UserId) != null ? ul.Find(x => x.F_Id == item.F_UserId).F_Name : "")</td>
+                    <td>@(gzh.F_GZHName)</td>
+                    <td width="200">
+                        <a title="删除" target="ajaxTodo" href="@Url.Content("~/MH/Delete")?id=@(item.F_Id)" class="btnDel">删除</a>
+                        <a title="编辑" target="dialog" href="@Url.Content("~/MH/EditView")?id=@(item.F_Id)" class="btnEdit" minable="false" mask="true">编辑</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="panelBar">
+        <div class="pages">
+            <span>显示</span>
+            <select name="numPerPage" id="numPerPage" param="numPerPage" onchange="navTabPageBreak({targetType:'navTab', numPerPage:this.value})">
+                @foreach (var it in vm.option)
+                {
+                    <option value="@it" @(vm.numPerPage == it ? "selected=\"selected\"" : "")>@it</option>
+                }
+            </select>
+            <span>条，共@(vm.totalcount)条</span>
+        </div>
+
+        <div class="pagination" targettype="navTab" totalcount="@(vm.totalcount)" numperpage="@(vm.numPerPage)" pagenumshown="10" currentpage="@(vm.pageNum)"></div>
+
+    </div>
+</div>

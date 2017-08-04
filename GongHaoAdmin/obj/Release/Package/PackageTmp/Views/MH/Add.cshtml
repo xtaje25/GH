@@ -1,0 +1,7 @@
+﻿@using GongHaoAdmin.Models;
+@using Newtonsoft.Json;
+@{
+    DWZJson j = Model;
+}
+@Html.Raw(JsonConvert.SerializeObject(j))
+

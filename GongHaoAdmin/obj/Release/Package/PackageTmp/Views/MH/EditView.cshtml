@@ -1,0 +1,41 @@
+﻿@using GongHaoAdmin.Models;
+@{
+    Tab_MHCatalog mh = ViewBag.mh;
+    Tab_MHImg img = ViewBag.img;
+    int sort = ViewBag.max;
+}
+<div class="pageContent">
+    <form method="post" action="@Url.Content("~/MH/Edit")" enctype="multipart/form-data" class="pageForm required-validate" onsubmit="return iframeCallback(this, dialogAjaxDone);">
+        <div class="pageFormContent" layoutH="56">
+            <p>
+                <label>漫画名称：</label>
+                <input name="mhname" readonly="readonly" type="text" size="30" value="@(mh!=null?mh.F_Catalog:"")" />
+                <input type="hidden" name="mhid" value="@(mh!=null?mh.F_Id:0)" />
+                <input type="hidden" name="fid" value="@(img!=null?img.F_Id:0)" />
+            </p>
+            <p>
+                <label>章节编号：</label>
+                <input name="sort" class="required digits" type="text" size="30" min="1" max="99999" value="@(sort)" />
+            </p>
+            <p>
+                <label>章节名称：</label>
+                <input name="name" class="required" type="text" size="30" minlength="1" maxlength="50" value="@(img!=null?img.F_Name:"")" />
+            </p>
+            <p style="height:auto">
+                <label>章节内容：</label>
+                <input id="img" name="img" type="file" accept="image/gif,image/jpeg,image/jpg,image/png" />
+            </p>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div>
+                </li>
+                <li>
+                    <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
+
