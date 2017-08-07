@@ -1,7 +1,6 @@
 ﻿@using GongHaoAdmin.Models;
 @using GongHaoAdmin.Utility;
 @{
-    ViewBag.Title = "IndexView";
     VM_Page<Tab_MHCatalog> vm = ViewBag.ca;
 }
 <style>
@@ -24,10 +23,11 @@
                 <th>编号</th>
                 <th>漫画名称</th>
                 <th>漫画logo</th>
+                <th>漫画简介</th>
                 <th>添加人</th>
                 <th>添加时间</th>
                 <th>关联公众号</th>
-                <th width="200">编辑</th>
+                <th width="200">添加漫画</th>
             </tr>
         </thead>
         <tbody>
@@ -47,11 +47,12 @@
                         {
                             <td></td>
                         }
+                        <td>@(item.F_About==null?"":item.F_About)</td>
                         <td>@(item.userName)</td>
                         <td>@(item.F_CreateDate.ToString("yyyy-MM-dd"))</td>
                         <td>@(item.GZHName)</td>
                         <td>
-                            <a title="编辑" target="navTab" href="@Url.Content("~/MH/DirView")?id=@(item.F_Id)" class="btnEdit" minable="false">编辑</a>
+                            <a title="编辑" target="navTab" href="@Url.Content("~/MH/DirView")?id=@(item.F_Id)" style="color:red;" minable="false">添加</a>
                         </td>
                     </tr>
                     i++;

@@ -15,7 +15,7 @@ namespace GongHaoAdmin.Repository
         {
             PageCriteria page = new PageCriteria();
             page.TableName = "[Tab_MHCatalog] a JOIN [Tab_GongZhongHao] b ON a.[F_GZHId] = b.[F_Id] JOIN [dbo].[Tab_User] c ON c.F_Id = a.[F_CreateUser]";
-            page.Fields = "a.[F_Id], a.[F_Catalog], a.[F_Logo], a.[F_GZHId], c.[F_Name] [userName], a.[F_CreateUser], a.[F_CreateDate], b.[F_GZHName] [GZHName]";
+            page.Fields = "a.[F_Id], a.[F_Catalog], a.[F_Logo], a.[F_About], a.[F_GZHId], c.[F_Name] [userName], a.[F_CreateUser], a.[F_CreateDate], b.[F_GZHName] [GZHName]";
             page.Condition = "b.[F_Id] = " + gzhid;
             page.Sort = "a.[F_Id] DESC";
             page.PageSize = pageSize;

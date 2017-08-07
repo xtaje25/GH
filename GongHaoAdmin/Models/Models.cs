@@ -252,6 +252,9 @@ namespace GongHaoAdmin.Models
 
         public DateTime F_CreateDate { get; set; }
 
+        [StringLength(4000)]
+        public string F_About { get; set; }
+
         /// <summary>
         /// 自定义
         /// </summary>

@@ -14,10 +14,10 @@
       <publishTime>08/04/2017 09:18:43</publishTime>
     </File>
     <File Include="bin/GongHaoAdmin.dll">
-      <publishTime>08/04/2017 17:22:52</publishTime>
+      <publishTime>08/07/2017 09:48:34</publishTime>
     </File>
     <File Include="bin/GongHaoAdmin.pdb">
-      <publishTime>08/04/2017 17:22:52</publishTime>
+      <publishTime>08/07/2017 09:48:34</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>08/04/2017 09:18:43</publishTime>
@@ -593,7 +593,7 @@
       <publishTime>08/04/2017 09:18:43</publishTime>
     </File>
     <File Include="Views/MH/IndexView.cshtml">
-      <publishTime>08/04/2017 10:20:27</publishTime>
+      <publishTime>08/07/2017 09:47:09</publishTime>
     </File>
     <File Include="Views/Order/CancelView.cshtml">
       <publishTime>08/04/2017 09:18:43</publishTime>
