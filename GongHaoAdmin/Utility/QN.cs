@@ -1,4 +1,5 @@
-﻿using Qiniu.IO.Model;
+﻿using Qiniu.Common;
+using Qiniu.IO.Model;
 using Qiniu.Util;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,8 @@ namespace GongHaoAdmin.Utility
         /// <param name="seconds">凭证有效时长</param>
         public static string GetUploadToken(string bucket, string key, int seconds = 3600)
         {
+            Config.AutoZone(AK, bucket, false); // 自动选择机房Zone
+
             // 上传策略
             PutPolicy putPolicy = new PutPolicy();
             putPolicy.SetExpires(seconds); // 上传策略的过期时间(单位:秒)
