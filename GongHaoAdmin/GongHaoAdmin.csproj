@@ -101,6 +101,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="404.htm" />
+    <Content Include="Content\css\img\01.jpg" />
+    <Content Include="Content\css\img\01.png" />
     <Content Include="Content\css\img\arw_l.gif" />
     <Content Include="Content\css\img\arw_r.gif" />
     <Content Include="Content\css\img\dl.png" />

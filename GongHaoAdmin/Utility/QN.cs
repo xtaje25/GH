@@ -15,7 +15,7 @@ namespace GongHaoAdmin.Utility
         private const string SK = "ckurM2tEcJaUafpCrleFMNdCGRMiR8sJenCpoq9v";
         public const string BUCKET = "zm123";
 #else
-        public const string IMGSRC = "http://ou3uvrtrl.bkt.clouddn.com";
+        public const string IMGSRC = "http://comicimg.app123.com.cn";
         private const string AK = "x4SoJxUe3KI1pzskuLjLv7GGYzc7Owy71VxyrIOw";
         private const string SK = "2Vzpinf_yToA_-1FFJVzHy4thgoXmArEWvZECLOC";
         public const string BUCKET = "comic";

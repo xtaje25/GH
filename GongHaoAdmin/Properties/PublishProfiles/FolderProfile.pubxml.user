@@ -14,10 +14,10 @@
       <publishTime>08/04/2017 09:18:43</publishTime>
     </File>
     <File Include="bin/GongHaoAdmin.dll">
-      <publishTime>08/07/2017 09:48:34</publishTime>
+      <publishTime>08/07/2017 13:28:34</publishTime>
     </File>
     <File Include="bin/GongHaoAdmin.pdb">
-      <publishTime>08/07/2017 09:48:34</publishTime>
+      <publishTime>08/07/2017 13:28:34</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>08/04/2017 09:18:43</publishTime>
@@ -569,7 +569,7 @@
       <publishTime>08/04/2017 09:18:43</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>08/04/2017 09:18:43</publishTime>
+      <publishTime>08/07/2017 10:43:31</publishTime>
     </File>
     <File Include="Views/Home/Login.cshtml">
       <publishTime>08/04/2017 09:18:43</publishTime>
@@ -593,7 +593,7 @@
       <publishTime>08/04/2017 09:18:43</publishTime>
     </File>
     <File Include="Views/MH/IndexView.cshtml">
-      <publishTime>08/07/2017 09:47:09</publishTime>
+      <publishTime>08/07/2017 10:28:32</publishTime>
     </File>
     <File Include="Views/Order/CancelView.cshtml">
       <publishTime>08/04/2017 09:18:43</publishTime>
@@ -605,7 +605,7 @@
       <publishTime>08/04/2017 09:18:43</publishTime>
     </File>
     <File Include="Views/User/AddView.cshtml">
-      <publishTime>08/04/2017 17:17:17</publishTime>
+      <publishTime>08/07/2017 10:30:21</publishTime>
     </File>
     <File Include="Views/User/EditView.cshtml">
       <publishTime>08/04/2017 17:10:12</publishTime>
@@ -620,7 +620,7 @@
       <publishTime>08/04/2017 09:18:43</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/04/2017 17:22:52</publishTime>
+      <publishTime>08/04/2017 17:22:24</publishTime>
     </File>
   </ItemGroup>
 </Project>
