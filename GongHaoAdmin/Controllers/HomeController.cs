@@ -77,12 +77,12 @@ namespace GongHaoAdmin.Controllers
 
             if (username != null && password != null)
             {
-                var user = _us.GetUser(username, password);
+                var pwd = Tools.MD5Encrypt32(password);
+                var user = _us.GetUser(username, pwd);
                 if (user != null)
                 {
                     var now = DateTime.Now;
-
-                    user.F_CreateDate = DateTime.Now;
+                    user.F_CreateDate = now;
                     string UserData = SerializeHelper.ToJson<Tab_User>(user); // 序列化用户实体
 
                     FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, "user", now, now, true, UserData);
@@ -164,13 +164,15 @@ namespace GongHaoAdmin.Controllers
                 return Json(new DWZJson() { statusCode = (int)DWZStatusCode.ERROR, message = "新旧密码不能相同" });
             }
 
-            var i = _us.UpdatePassword(user.F_Id, pwd1, pwd2);
+            var oldpwd = Tools.MD5Encrypt32(pwd1);
+            var newpwd = Tools.MD5Encrypt32(pwd2);
+            var i = _us.UpdatePassword(user.F_Id, oldpwd, newpwd);
 
             if (i == 1)
             {
                 var now = DateTime.Now;
                 user.F_CreateDate = DateTime.Now;
-                user.F_Password = pwd2;
+                user.F_Password = newpwd;
                 string UserData = SerializeHelper.ToJson<Tab_User>(user); // 序列化用户实体
                 ticket = new FormsAuthenticationTicket(1, "user", now, now, true, UserData);
                 HttpCookie cookie = new HttpCookie("a", FormsAuthentication.Encrypt(ticket).ToLower()); // 加密身份信息，保存至Cookie

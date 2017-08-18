@@ -113,10 +113,27 @@ namespace GongHaoAdmin.Controllers
                 return Json(new DWZJson { statusCode = (int)DWZStatusCode.ERROR, message = "账号不存在" });
             }
 
-            int i = _us.UpdateUser(uid);
+            int i = _us.ResetPassword(uid);
 
             if (i == 1)
             {
+                HttpCookie authCookie = Request.Cookies["a"]; // 获取cookie
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value); // 解密
+                var user = SerializeHelper.FromJson<Tab_User>(ticket.UserData);
+
+                if (user.F_Id == uid) // 重置当前操作人自己的账号的密码需要重新设置cookie
+                {
+                    var now = DateTime.Now;
+                    user.F_CreateDate = DateTime.Now;
+                    user.F_Password = Tools.MD5Encrypt32("123456");
+                    string UserData = SerializeHelper.ToJson<Tab_User>(user); // 序列化用户实体
+                    ticket = new FormsAuthenticationTicket(1, "user", now, now, true, UserData);
+                    HttpCookie cookie = new HttpCookie("a", FormsAuthentication.Encrypt(ticket).ToLower()); // 加密身份信息，保存至Cookie
+                    cookie.HttpOnly = true;
+
+                    Response.SetCookie(cookie);
+                }
+
                 return Json(new DWZJson { statusCode = (int)DWZStatusCode.OK, message = "成功" });
             }
             else
@@ -186,7 +203,7 @@ namespace GongHaoAdmin.Controllers
 
             Tab_User uu = new Tab_User();
             uu.F_Name = name;
-            uu.F_Password = "123456";
+            uu.F_Password = Tools.MD5Encrypt32("123456");
             uu.GZHId = gid;
             uu.RoleId = rid;
 

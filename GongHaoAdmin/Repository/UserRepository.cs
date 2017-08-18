@@ -161,15 +161,15 @@ namespace GongHaoAdmin.Repository
             }
         }
 
-        public int UpdateUser(int uid)
+        public int ResetPassword(int uid, string pwd)
         {
             var sql = @"UPDATE [Tab_User]
-                           SET [F_Password] = '123456'
+                           SET [F_Password] = @F_Password
                          WHERE [F_Id] = @F_Id";
 
             using (SqlConnection conn = new SqlConnection(MHConncetionString))
             {
-                return conn.Execute(sql, new { F_Id = uid });
+                return conn.Execute(sql, new { F_Id = uid, F_Password = pwd });
             }
         }
 
