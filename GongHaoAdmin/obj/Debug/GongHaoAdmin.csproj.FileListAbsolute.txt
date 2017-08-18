@@ -166,3 +166,4 @@ C:\My Project\GH\GongHaoAdmin\bin\zh-Hans\System.Web.Mvc.resources.dll
 C:\My Project\GH\GongHaoAdmin\obj\Debug\GongHaoAdmin.csprojResolveAssemblyReference.cache
 C:\My Project\GH\GongHaoAdmin\obj\Debug\GongHaoAdmin.dll
 C:\My Project\GH\GongHaoAdmin\obj\Debug\GongHaoAdmin.pdb
+C:\My Project\GH\GongHaoAdmin\obj\Debug\GongHaoAdmin.csproj.CoreCompileInputs.cache
